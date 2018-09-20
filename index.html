@@ -65,7 +65,7 @@
             toRemoveBR.forEach(br => br.remove())
             toRemoveDivs.forEach(div => div.remove())
 
-            let gridNumber = Number(prompt("What size should the grid be? (max 64)"));
+            let gridNumber = Math.round(Number(prompt("What size should the grid be? (max 64)")));
             let gridSize = 760 / gridNumber;
             if (gridNumber <= 64 && gridNumber > 0) {
             for (i=0;i<gridNumber;i++) {
@@ -82,7 +82,7 @@
             
             divs = document.querySelectorAll("div.internDiv");
             divs.forEach(div => div.addEventListener("mouseover", changeBackground));
-            } else if (gridNumber == "") {
+            } else if (gridNumber === "") {
             return;
             } else {
             alert("Please enter a number between 1 and 64 ")
