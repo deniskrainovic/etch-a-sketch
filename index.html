@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Etch-A-Sketch</title>
+    <style> 
+    body {
+        text-align: center;
+        background-color: black;
+    }
+    .container {
+        border: 1px solid blueviolet;
+        background-color: black;
+        text-align: center;
+        display:inline-block;
+        font-size: 0;
+        width: 760px;
+        height: 760px;
+       }
+    .internDiv {
+        
+        width: 47.5px;
+        height: 47.5px;
+        display:inline-block;
+        margin: 0;
+        }
+    br {
+        width:0;
+        height:0;
+    }
+    button {
+        background-color: blueviolet;
+    }
+    </style>
+</head>
+<body>
+    <div style="text-align: center;"><button onclick="reset()" style="align-self: center; width:60px; height:25px; margin: 20px;">Reset</button></div>
+     <br>
+    <div class="container"></div>
+
+    <script>
+        const container = document.querySelector(".container");
+       
+        function changeBackground(e) {
+            this.style.backgroundColor = "white";
+        }
+
+        for (i=0;i<16;i++) {
+            for(x=0;x<16;x++) {
+                let newDiv = document.createElement("div");
+                newDiv.classList.add("internDiv");
+                container.appendChild(newDiv);
+            }
+           let br = document.createElement("br");
+           container.appendChild(br);
+        }
+
+        let divs = document.querySelectorAll("div.internDiv");
+        divs.forEach(div => div.addEventListener("mouseover", changeBackground));
+
+        function reset(){
+           
+            let toRemoveDivs = document.querySelectorAll("div.internDiv");
+            let toRemoveBR = document.querySelectorAll("br");
+            toRemoveBR.forEach(br => br.remove())
+            toRemoveDivs.forEach(div => div.remove())
+
+            let gridNumber = Number(prompt("What size should the grid be? (max 64)"));
+            let gridSize = 760 / gridNumber;
+            if (gridNumber <= 64 && gridNumber > 0) {
+            for (i=0;i<gridNumber;i++) {
+            for (x=0;x<gridNumber;x++) {
+                let newDiv = document.createElement("div");
+                newDiv.classList.add("internDiv");
+                newDiv.style.height = gridSize + "px";
+                newDiv.style.width = gridSize + "px";
+                container.appendChild(newDiv);
+            }
+            let br = document.createElement("br");
+            container.appendChild(br);
+            }
+            
+            divs = document.querySelectorAll("div.internDiv");
+            divs.forEach(div => div.addEventListener("mouseover", changeBackground));
+            } else if (gridNumber == "") {
+            return;
+            } else {
+            alert("Please enter a number between 1 and 64 ")
+            reset();
+        }
+        
+        }
+    </script>
+</body>
+</html>
