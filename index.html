@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Etch-A-Sketch</title>
+    <link href="https://fonts.googleapis.com/css?family=Poor+Story" rel="stylesheet">
     <style> 
     body {
         text-align: center;
-        background-color: black;
+        background-color: #47a186;
     }
     .container {
-        border: 1px solid blueviolet;
-        background-color: black;
+        border: 1px solid #fbc052;
+        background-color: #224e4a;
         text-align: center;
         display:inline-block;
         font-size: 0;
@@ -29,20 +30,69 @@
         height:0;
     }
     button {
-        background-color: blueviolet;
+        border: 1px solid #fbc052;
+        color: white;
+        background-color: #224e4a;
+        font-size: 18px;
+        padding: 0;
+        font-family: 'Poor Story', cursive;
+    }
+    h3, h1 {
+        font-family: 'Poor Story', cursive;
+        font-size: 1.5rem;
+        margin: 0;
+        color: black;
+    }
+    h1 {
+        margin: 10px;
+    }
+    hr {
+        width: 100px;
+        border: 1px solid black;
     }
     </style>
 </head>
 <body>
-    <div style="text-align: center;"><button onclick="reset()" style="align-self: center; width:60px; height:25px; margin: 20px;">Reset</button></div>
-     <br>
+    <div style="text-align: center;">
+        <button onclick="reset()" style="width:90px; height:35px; margin: 20px auto;">Reset</button>
+        <button id="switch" onclick="switchColor()" style="width:90px; height:35px; margin: 20px auto;">Change Mode</button> <br>
+        <h3></h3>
+    </div>
+    <br>
     <div class="container"></div>
+    <hr>
+    <h1>Etch-A-Sketch by Denis Krainovic</h1>
 
     <script>
+        const modeText = document.querySelector("h3");
         const container = document.querySelector(".container");
+        let colorPick = 0;
+
+        modeText.innerHTML = "Current Mode: Monochrome";
        
-        function changeBackground(e) {
+        function randomNum() {
+           let rndm = Math.floor((Math.random() * 255)+1) 
+           return rndm;
+        }
+
+        function changeColor(e) {
+            if (colorPick === 0){
+            modeText.innerHTML = "Current Mode: Monochrome";
             this.style.backgroundColor = "white";
+        } else {
+           
+            this.style.backgroundColor = "rgb(" + randomNum() + "," + randomNum() + "," + randomNum() + ")"
+        }}
+
+        function switchColor() {
+            if (colorPick === 0) {
+                modeText.innerHTML = "Current Mode: Rainbow";
+                colorPick = 1;
+            } else {
+               
+                modeText.innerHTML = "Current Mode: Monochrome";
+                colorPick = 0;
+            }
         }
 
         for (i=0;i<16;i++) {
@@ -56,10 +106,10 @@
         }
 
         let divs = document.querySelectorAll("div.internDiv");
-        divs.forEach(div => div.addEventListener("mouseover", changeBackground));
+        divs.forEach(div => div.addEventListener("mouseover", changeColor));
 
+//function to reset grid and ask for gridsize
         function reset(){
-           
             let toRemoveDivs = document.querySelectorAll("div.internDiv");
             let toRemoveBR = document.querySelectorAll("br");
             toRemoveBR.forEach(br => br.remove())
@@ -81,15 +131,13 @@
             }
             
             divs = document.querySelectorAll("div.internDiv");
-            divs.forEach(div => div.addEventListener("mouseover", changeBackground));
+            divs.forEach(div => div.addEventListener("mouseover", changeColor));
             } else if (gridNumber === "") {
             return;
             } else {
             alert("Please enter a number between 1 and 64 ")
             reset();
-        }
-        
-        }
+        }}
     </script>
 </body>
 </html>
